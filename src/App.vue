@@ -1,28 +1,55 @@
 <template>
-  <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
-  </div>
+  <v-app>
+    <template
+      v-if="
+        this.$store.getters.isLoggedIn &&
+          this.$store.getters.authStatus !== 'error'
+      "
+    >
+      <v-main>
+       <!--  <router-view></router-view> -->
+       <agile-engine-photos></agile-engine-photos>
+      </v-main>
+    </template>
+    <template v-else>
+      <app-login-form></app-login-form>
+    </template>
+  </v-app>
 </template>
-
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import AgileEnginePhotos from "./components/AgileEnginePhotos";
+import AppLoginForm from "./components/AppLoginForm";
 
 export default {
-  name: 'App',
+  name: "App",
   components: {
-    HelloWorld
-  }
-}
+    AgileEnginePhotos,
+    AppLoginForm
+  },
+  data: () => ({
+    //
+  })
+};
 </script>
-
-<style>
+<style lang="scss">
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
+}
+
+#nav {
+  padding: 30px;
+
+  a {
+    font-weight: bold;
+    color: #2c3e50;
+
+    &.router-link-exact-active {
+      color: #42b983;
+    }
+  }
 }
 </style>
